@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ColorKey, HeadingSize } from '../../styles/theme';
+import { ColorKey } from '../../styles/theme';
 
 interface Props {
   children: React.ReactNode;
