@@ -3,20 +3,20 @@ import InputText from '../components/common/InputText';
 import Button from '../components/common/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { resetPassword, resetRequest } from '../api/auth.api';
+import { login, signup } from '../api/auth.api';
 import { useAlert } from '../hooks/useAlert';
 import { SignupStyle } from './Signup';
-import { useState } from 'react';
+import { useAuthStore } from '../store/authStore';
 
 export interface SignupProps {
   email: string;
   password: string;
 }
 
-const ResetPassword = () => {
+const Login = () => {
   const navigate = useNavigate();
   const showAlert = useAlert();
-  const [resetRequested, setResetRequested] = useState(false);
+  const { isLoggedIn, storeLogin, storeLogout } = useAuthStore();
 
   const {
     register,
@@ -25,23 +25,22 @@ const ResetPassword = () => {
   } = useForm<SignupProps>();
 
   const onSubmit = (data: SignupProps) => {
-    if (resetRequested) {
-      // 초기화
-      resetPassword(data).then(() => {
-        showAlert('비밀번호 초기화되었습니다.');
-        navigate('/login');
-      });
-    } else {
-      //요청
-      resetRequest(data).then(() => {
-        setResetRequested(true);
-      });
-    }
+    login(data).then(
+      (res) => {
+        // 상태 변화
+        storeLogin(res.token);
+        showAlert('로그인이 완료되었습니다.');
+        navigate('/');
+      },
+      (error) => {
+        showAlert('로그인이 실패했습니다.');
+      }
+    );
   };
 
   return (
     <>
-      <Title size="large">비밀번호 초기화</Title>
+      <Title size="large">로그인</Title>
       <SignupStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset>
@@ -52,20 +51,17 @@ const ResetPassword = () => {
             />
             {errors.email && <p className="error-text">이메일을 입력해주세요.</p>}
           </fieldset>
-          {resetRequested && (
-            <fieldset>
-              <InputText
-                placeholder="비밀번호"
-                inputType="password"
-                {...register('password', { required: true })}
-              />
-              {errors.password && <p className="error-text">비밀번호를 입력해주세요.</p>}
-            </fieldset>
-          )}
-
+          <fieldset>
+            <InputText
+              placeholder="비밀번호"
+              inputType="password"
+              {...register('password', { required: true })}
+            />
+            {errors.password && <p className="error-text">비밀번호를 입력해주세요.</p>}
+          </fieldset>
           <fieldset>
             <Button type="submit" size="medium" scheme="primary">
-              {resetRequested ? '비밀번호 초기화' : '초기화 요청'}
+              로그인
             </Button>
           </fieldset>
           <div className="info">
@@ -77,4 +73,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default Login;
