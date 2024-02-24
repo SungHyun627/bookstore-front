@@ -7,9 +7,7 @@ const COUNT = 10000;
 const Home = () => {
   return (
     <>
-      <Header />
       <div>Home body</div>
-      <Footer />
     </>
   );
 };

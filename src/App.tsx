@@ -1,13 +1,20 @@
 import Layout from './components/layout/Layout';
-import Detail from './pages/Detail';
 import Home from './pages/Home';
+import { GlobalStyle } from './styles/global';
+import { ThemeProvider } from 'styled-components';
+import { light } from './styles/theme';
 
-function App() {
+const App = () => {
   return (
-    <Layout>
-      <Home />
-    </Layout>
+    <>
+      <ThemeProvider theme={light}>
+        <GlobalStyle themeName="light" />
+        <Layout>
+          <Home />
+        </Layout>
+      </ThemeProvider>
+    </>
   );
-}
+};
 
 export default App;
