@@ -12,14 +12,14 @@ interface State {
 }
 
 export const state = {
-  themeName: 'light' as ThemeName,
+  themeName: DEFAULT_THEME_NAME as ThemeName,
   toggleTheme: () => {},
 };
 
 export const ThemeContext = createContext<State>(state);
 
 export const BookStoreThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [themeName, setThemeName] = useState<ThemeName>('light');
+  const [themeName, setThemeName] = useState<ThemeName>(DEFAULT_THEME_NAME);
 
   const toggleTheme = () => {
     setThemeName(themeName === 'light' ? 'dark' : 'light');

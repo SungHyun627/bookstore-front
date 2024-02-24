@@ -1,11 +1,7 @@
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
-import { GlobalStyle } from './styles/global';
-import { ThemeProvider } from 'styled-components';
-import { ThemeName, getTheme } from './styles/theme';
 import ThemeSwitcher from './components/header/ThemeSwitcher';
-import { useContext, useState } from 'react';
-import { BookStoreThemeProvider, ThemeContext } from './context/themeContext';
+import { BookStoreThemeProvider } from './context/themeContext';
 
 const App = () => {
   return (
