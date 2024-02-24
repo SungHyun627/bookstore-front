@@ -1,3 +1,4 @@
+import Footer from '../components/common/Footer';
 import Header from '../components/common/Header';
 import { formatNumber } from '../utils/format';
 
@@ -7,8 +8,8 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div>book store</div>
-      <div>count: {formatNumber(COUNT)}</div>
+      <div>Home body</div>
+      <Footer />
     </>
   );
 };
