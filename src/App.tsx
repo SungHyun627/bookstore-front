@@ -5,9 +5,7 @@ import { BookStoreThemeProvider } from './context/themeContext';
 const App = () => {
   return (
     <BookStoreThemeProvider>
-      <Layout>
-        <Home />
-      </Layout>
+      <Layout>Home</Layout>
     </BookStoreThemeProvider>
   );
 };
